@@ -16,6 +16,8 @@ const PlacesForm = () => {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [maxGuests, setMaxGuests] = useState(1);
+  const [price, setPrice] = useState(100);
+
   const [redirect, setRedirect] = useState(false);
 
   // **
@@ -37,6 +39,7 @@ const PlacesForm = () => {
         setCheckIn(data.checkIn);
         setCheckOut(data.checkOut);
         setMaxGuests(data.maxGuests);
+        setPrice(data.price);
       } catch (error) {
         console.log("Failed to get a place with the given ID");
       }
@@ -74,6 +77,7 @@ const PlacesForm = () => {
       checkIn,
       checkOut,
       maxGuests,
+      price,
     };
 
     if (id) {
@@ -145,7 +149,7 @@ const PlacesForm = () => {
           "Check in&out time, max guests",
           "add check in and out time, remember to have some time window for cleaning the room between guests"
         )}
-        <div className="grid gap-2 sm:grid-cols-3 mb-8">
+        <div className="grid gap-2 sm:grid-cols-2 mb-8 md:grid-cols-4">
           <div>
             <h3 className="mt-2 -mb-1 font-medium">Check in time</h3>
             <input
@@ -170,6 +174,14 @@ const PlacesForm = () => {
               type="number"
               value={maxGuests}
               onChange={(e) => setMaxGuests(e.target.value)}
+            />
+          </div>
+          <div>
+            <h3 className="mt-2 -mb-1 font-medium">Price per night</h3>
+            <input
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
             />
           </div>
         </div>

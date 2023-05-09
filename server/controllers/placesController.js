@@ -21,11 +21,10 @@ const uploadPhoto = (req, res) => {
 };
 
 // @desc   Add new accommodation Place
-// @route  POST /add-new-place
+// @route  POST /place
 // @access Private
 const addNewPlace = async (req, res) => {
   const { token } = req.cookies;
-  console.log(token);
 
   const {
     title,
@@ -37,6 +36,7 @@ const addNewPlace = async (req, res) => {
     checkIn,
     checkOut,
     maxGuests,
+    price,
   } = req.body;
 
   if (!token) {
@@ -59,6 +59,7 @@ const addNewPlace = async (req, res) => {
       checkIn,
       checkOut,
       maxGuests,
+      price
     });
 
     res.json(place);
@@ -66,11 +67,10 @@ const addNewPlace = async (req, res) => {
 };
 
 // @desc   Get all added places added by the user
-// @route  GET /get-all-places
+// @route  GET /user-places
 // @access Private
-const getAllPlaces = async (req, res) => {
+const getUserPlaces = async (req, res) => {
   const { token } = req.cookies;
-  console.log(token);
 
   if (!token) {
     res.status(404).json("No token found");
@@ -89,21 +89,27 @@ const getAllPlaces = async (req, res) => {
 };
 
 // @desc   Get a specific place using the id
-// @route  GET /get-all-places/:id
+// @route  GET /place/:id
 // @access Private
 const getPlace = async (req, res) => {
   const { id } = req.params;
 
   const place = await Place.findById(id);
+
   res.json(place);
 };
 
-// @desc   Get a specific place using the id
-// @route  GET /get-all-places/:id
+// @desc   Update place infos
+// @route  PUT /place/:id
 // @access Private
 const updatePlace = async (req, res) => {
   const { token } = req.cookies;
-  console.log(token);
+
+  if (!token) {
+    res.status(404).json("No token found");
+    return;
+  }
+
   const {
     id,
     title,
@@ -115,6 +121,7 @@ const updatePlace = async (req, res) => {
     checkIn,
     checkOut,
     maxGuests,
+    price,
   } = req.body;
 
   await jwt.verify(token, process.env.SECRET_KEY, {}, async (err, info) => {
@@ -133,16 +140,27 @@ const updatePlace = async (req, res) => {
         checkIn,
         checkOut,
         maxGuests,
+        price,
       });
       res.json(updatedPlace);
     }
   });
 };
 
+// @desc   Get a specific place using the id
+// @route  GET /all-places
+// @access Private
+const getAllPlaces = async (req, res) => {
+  const allPlaces = await Place.find();
+
+  res.json(allPlaces);
+};
+
 module.exports = {
   uploadPhoto,
   addNewPlace,
-  getAllPlaces,
+  getUserPlaces,
   getPlace,
   updatePlace,
+  getAllPlaces,
 };
