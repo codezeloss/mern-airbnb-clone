@@ -3,12 +3,13 @@ const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
+const placesRoutes = require("./routes/placesRoutes");
 const cookieParser = require("cookie-parser");
 
 // MIDDLEWARES
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(express.json());
-app.use(express.static("./public"));
+app.use("/api/v1/uploads", express.static(__dirname + "/uploads"));
 app.use(cookieParser());
 
 // MORGAN
@@ -17,6 +18,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // ROUTES
-app.use("/api/v1/", userRoutes);
+app.use("/api/v1/auth", userRoutes);
+app.use("/api/v1/places", placesRoutes);
 
 module.exports = app;

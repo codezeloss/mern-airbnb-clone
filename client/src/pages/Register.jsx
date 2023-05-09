@@ -13,7 +13,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      await axios.post("/register", { name, email, password });
+      await axios.post("/auth/register", { name, email, password });
       alert("Registration Successful. Now you can login ;)");
     } catch (error) {
       alert("Registration failed. Please try again later :(");

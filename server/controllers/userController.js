@@ -68,11 +68,19 @@ const profile = async (req, res) => {
     return;
   }
 
-  await jwt.verify(token, process.env.SECRET_KEY, async (err, info) => {
+  // JWT
+  await jwt.verify(token, process.env.SECRET_KEY, {}, async (err, info) => {
     if (err) throw err;
     const { name, email, _id } = await User.findById(info.id);
     res.json({ name, email, _id });
   });
 };
 
-module.exports = { register, login, profile };
+// @desc   logout user
+// @route  POST /profile
+// @access Private
+const logout = async (req, res) => {
+  res.cookie("token", "").json("User logout successfully");
+};
+
+module.exports = { register, login, profile, logout };
