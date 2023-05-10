@@ -8,7 +8,8 @@ import Login from "./pages/Login";
 import Places from "./pages/Places";
 import Register from "./pages/Register";
 import PlacesForm from "./pages/PlacesForm";
-import Bookings from "./pages/Bookings";
+import Place from "./pages/Place";
+// import Bookings from "./pages/Bookings";
 
 axios.defaults.baseURL = "http://localhost:4000/api/v1";
 // axios.defaults.withCredentials = true;
@@ -26,7 +27,8 @@ function App() {
             <Route path="/account/places" element={<Places />} />
             <Route path="/account/places/new" element={<PlacesForm />} />
             <Route path="/account/places/:id" element={<PlacesForm />} />
-            <Route path="/account/bookings" element={<Bookings />} />
+            <Route path="/place/:id" element={<Place/>} />
+            {/* <Route path="/account/bookings" element={<Bookings />} /> */}
           </Route>
         </Routes>
       </BrowserRouter>
