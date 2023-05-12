@@ -1,4 +1,6 @@
 const express = require("express");
+const router = express.Router();
+
 const {
   uploadPhoto,
   addNewPlace,
@@ -9,7 +11,6 @@ const {
 } = require("../controllers/placesController");
 const photosMiddleware = require("../middlewares/photosMiddleware");
 const { uploadPhotosByLink } = require("../uploads/uploadPhotosByLink");
-const router = express.Router();
 
 router.route("/upload-by-link").post(uploadPhotosByLink);
 router

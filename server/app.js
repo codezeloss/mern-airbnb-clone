@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
 const placesRoutes = require("./routes/placesRoutes");
+const bookingRoutes = require("./routes/bookingRoutes");
 const cookieParser = require("cookie-parser");
 
 // MIDDLEWARES
@@ -20,5 +21,6 @@ if (process.env.NODE_ENV === "development") {
 // ROUTES
 app.use("/api/v1/auth", userRoutes);
 app.use("/api/v1/places", placesRoutes);
+app.use("/api/v1/bookings", bookingRoutes);
 
 module.exports = app;

@@ -59,7 +59,7 @@ const addNewPlace = async (req, res) => {
       checkIn,
       checkOut,
       maxGuests,
-      price
+      price,
     });
 
     res.json(place);
